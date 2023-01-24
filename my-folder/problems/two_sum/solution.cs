@@ -1,42 +1,21 @@
 public class Solution {
     public int[] TwoSum(int[] nums, int target) {
-        
-        var result = new int[2];
-        return TwoSumRecursive(nums, target, 0, result);
-        
-    }
-    private int GetIndex(int[] nums, int rem, int k)
-    {
-        int index =0;
-         for(int j=k;j< nums.Length;j++)
-         {
-                if(nums[j] == rem)
-                {
-                    index =j;
-                    break;
-                }
-                    
-         }
-        return index;
-        
-    }
-    private int[] TwoSumRecursive(int[] nums, int target, int i, int[] resultArray) {
-        
-            if (i >= nums.Length)
-                return new int[0];
-
+        var dict = new Dictionary<int,int>();
+        var res = new int[2];
+        for(int i=0 ; i< nums.Length; i++)
+        {
             int rem = target - nums[i];
-            if (nums.Contains(rem))
+            if(dict.ContainsKey(rem))
             {
-                if (rem != nums[i] || (rem == nums[i] && nums.Count(s => s == rem) > 1))
-                {
-                    resultArray[0] = i;
-                    resultArray[1] = GetIndex(nums, rem, i + 1);
-                    return resultArray;
-                }
-
+                res[0]= dict[rem];
+                res[1] = i;
+                break;
             }
-             return  TwoSumRecursive(nums, target, i+1, resultArray);
-        
+            if(!dict.ContainsKey(nums[i]))
+                dict.Add(nums[i],i);
+        }
+        return res;
     }
+
+  
 }
