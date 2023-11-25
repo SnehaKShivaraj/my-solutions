@@ -1,16 +1,21 @@
 public class Solution {
-public int UniquePaths(int m, int n) {
-      return uniquePath(m, n, new Dictionary<string, int>());
-    }
-    private int uniquePath(int m, int n, IDictionary<string, int> memo){
-        if(m == 0 || n == 0) return 0;
-        if(m == 1 && n == 1) return 1;
-        string key = m + "+" + n;
-        if(memo.ContainsKey(key)) return memo[key];
+    public int UniquePaths(int m, int n) {
+        var dp = new  int[m, n];
+        dp[0, 0] = 1;
+        for(int i = 0; i< m; i++){
+            for(int j = 0; j< n ; j++){
+                if(i == 0 && j == 0) continue;
 
-        int value = uniquePath(m-1, n, memo) + uniquePath(m, n-1, memo);
-        if(!memo.ContainsKey(key)) memo.Add(key, value);
-
-        return memo[key];
+                dp[i, j] = 0;
+                if(i > 0){
+                    dp[i, j] += dp[i - 1, j];
+                }
+                if(j > 0){
+                    dp[i, j] += dp[i, j - 1];
+                }
+                
+            }
+        }
+        return dp[m - 1, n - 1];
     }
 }
