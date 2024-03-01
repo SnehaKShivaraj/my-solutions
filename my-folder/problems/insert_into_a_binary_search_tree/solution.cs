@@ -13,30 +13,28 @@
  */
 public class Solution {
     public TreeNode InsertIntoBST(TreeNode root, int val) {
+        var newNode = new TreeNode(val);
         if(root == null){
-            return new TreeNode(val);
+            return newNode;
         }
+
         var cur = root;
-        while(true){
-            if(cur.val > val){
-                if(cur.left != null){
-                    cur = cur.left;
-                }
-                else{
-                    cur.left = new TreeNode(val);
+        while(cur != null){
+            if(val > cur.val){
+                if(cur.right == null){
+                    cur.right = newNode;
                     break;
                 }
+                cur = cur.right;
             }
             else{
-                if(cur.right != null){
-                    cur = cur.right; 
-                }
-                else{
-                    cur.right = new TreeNode(val);
+                if(cur.left == null){
+                    cur.left = newNode;
                     break;
                 }
+                cur = cur.left;
             }
         }
-        return root;
+        return root;    
     }
 }
