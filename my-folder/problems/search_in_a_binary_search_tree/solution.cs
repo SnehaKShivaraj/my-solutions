@@ -13,19 +13,10 @@
  */
 public class Solution {
     public TreeNode SearchBST(TreeNode root, int val) {
-        if(root == null){
-            return default;
-        }
 
-        if(root.val == val){
-            return root;
+        while(root != null && root.val != val){
+            root = root.val > val ? root.left : root.right;
         }
-        if(val < root.val){
-            return SearchBST(root.left, val);
-        }
-        if(val > root.val){
-            return SearchBST(root.right, val);
-        }
-        return default;   
+        return  root;
     }
 }
